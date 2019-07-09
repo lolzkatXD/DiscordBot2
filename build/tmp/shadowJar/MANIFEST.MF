@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Main-Class: Main
+Class-Path: JDA-3.8.3_464.jar jsr305-3.0.2.jar annotations-16.0.1.jar sl
+ f4j-api-1.7.25.jar nv-websocket-client-2.5.jar okhttp-3.13.0.jar opus-j
+ ava-1.0.4.pom commons-collections4-4.1.jar json-20160810.jar trove4j-3.
+ 0.3.jar okio-1.17.2.jar opus-java-api-1.0.4.jar opus-java-natives-1.0.4
+ .jar jna-4.4.0.jar
+

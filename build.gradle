@@ -1,0 +1,52 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '4.0.4'
+}
+
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    compile "net.dv8tion:JDA:3.8.3_463"
+    compile 'org.slf4j:slf4j-simple:1.7.25'
+    compile 'commons-io:commons-io:2.6'
+    compile 'com.jagrosh:jda-utilities:2.1.5'
+    shadow 'net.dv8tion:JDA:3.8.3_464'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    mainClassName = 'Main'
+}
+
+
+task copyFinalJarToTarget(type: Copy) {
+	from jar.archivePath.getPath()
+	into 'target'
+	rename (jar.archiveName, jar.baseName + '.jar')
+}
+
+shadowJar {
+	doFirst {
+		new File(destinationDir, archiveName).delete()
+	}
+
+	from sourceSets.main.java.srcDirs
+	archiveName = jar.archiveName
+
+	exclude 'META-INF/**'
+}
+
+compileJava.dependsOn(clean)
+compileJava.finalizedBy(test)
+jar.enabled = false
+jar.finalizedBy(shadowJar)
+shadowJar.finalizedBy(copyFinalJarToTarget)
